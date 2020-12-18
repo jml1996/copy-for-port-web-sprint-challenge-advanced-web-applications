@@ -21,19 +21,13 @@ class Login extends React.Component {
   login = e => {
     e.preventDefault();
     console.log(this.state.credentials);
-    // this.props.setIsLoading(true);
     axios
       .post("http://localhost:5000/api/login", this.state.credentials)
       .then((res) => {
-        console.log(res.data.payload);
         localStorage.setItem("token", res.data.payload);
-        console.log(this.props);
-        // this.props.history.push('/bubblepage');
-        // this.props.setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        // this.props.setIsLoading(false);
       });
   };
 
