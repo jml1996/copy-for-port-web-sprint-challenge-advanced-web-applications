@@ -49,6 +49,7 @@ const AddBubble = (props) => {
                         onChange={onChange}
                         placeholder="color"
                         maxLength="30"
+                        data-testid="colorInput"
                     />
                 </label>
                 <label>Hex Code
@@ -59,10 +60,11 @@ const AddBubble = (props) => {
                         onChange={onChange}
                         placeholder="hex code"
                         maxLength="30"
+                        data-testid="hexInput"
                     />
                 </label>
                 <div className='submit'>
-                    <button>submit</button>
+                    <button data-testid="addCircle">submit</button>
                 </div>
             </form>
         </div>

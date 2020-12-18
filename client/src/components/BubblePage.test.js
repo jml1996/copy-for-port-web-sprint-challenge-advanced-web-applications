@@ -1,5 +1,6 @@
 import React from "react";
 import { getAllByTestId, render, screen, wait } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 import BubblePage from "./BubblePage";
 import { getColorData as mockGetColorData } from './../api/getColorData';
 jest.mock('./../api/getColorData');
@@ -17,7 +18,6 @@ test("Fetches data and renders the bubbles", async () => {
     expect(name).toBeInTheDocument();
   })
 });
-
 
 const colorsMockData = [
   {
