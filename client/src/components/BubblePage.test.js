@@ -5,7 +5,6 @@ import { getColorData as mockGetColorData } from './../api/getColorData';
 jest.mock('./../api/getColorData');
 
 test("Fetches data and renders the bubbles", async () => {
-  // Finish this test
   mockGetColorData.mockResolvedValueOnce(colorsMockData);
 
   render(<BubblePage/>);
@@ -17,7 +16,6 @@ test("Fetches data and renders the bubbles", async () => {
     expect(circles).toHaveLength(11);
     expect(name).toBeInTheDocument();
   })
-
 });
 
 
