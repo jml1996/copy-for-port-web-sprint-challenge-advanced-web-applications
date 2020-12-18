@@ -2,11 +2,12 @@ import axios from 'axios';
 import { axiosWithAuth } from './../utils/axiosWithAuth';
 
 export const getColorData = () => {
-    axiosWithAuth()
+    return axiosWithAuth()
         .get('/api/colors')
         .then((res)=>{
-          console.log("data: ", res);
-          setColorList(res.data);
+          console.log(res.data);
+          // setColorList(res.data);
+          return res.data;
   
           // this.setState({
           //   friendsList: res.data
