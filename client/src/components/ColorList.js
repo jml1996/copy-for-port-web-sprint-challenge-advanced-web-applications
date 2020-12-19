@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useParams, useHistory } from "react-router-dom";
+import { axiosWithAuth } from './../utils/axiosWithAuth';
+import AddBubble from './AddBubble';
 
 const initialColor = {
   color: "",
@@ -7,9 +10,11 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+
+  const id = colorToEdit.id;
+  console.log(id);
 
   const editColor = color => {
     setEditing(true);
@@ -21,10 +26,29 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+      .put(`http://localhost:5000/api/colors/${id}`, colorToEdit)
+      .then((res) => {
+        const updatedColorList = [...colors.filter((value) => {
+          return value.id != id
+        }), res.data];
+        updateColors(updatedColorList);
+      })
+      .catch(err => console.log(err));
   };
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    console.log(color);
+    axiosWithAuth()
+      .delete(`http://localhost:5000/api/colors/${color.id}`)
+      .then((res) => {
+        const updatedColorList = [...colors.filter((value) => {
+          return value.id != res.data
+        })];
+        updateColors(updatedColorList);
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -80,7 +104,9 @@ const ColorList = ({ colors, updateColors }) => {
           </div>
         </form>
       )}
-      <div className="spacer" />
+      <div className="spacer">
+        <AddBubble updateColors={updateColors} />
+      </div>
       {/* stretch - build another form here to add a color */}
     </div>
   );
